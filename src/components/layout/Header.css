@@ -1,0 +1,57 @@
+.header {
+  background-color: #d97706; /* Couleur ocre marocaine */
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+.nav-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+.cart-icon {
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #dc2626;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
