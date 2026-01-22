@@ -1,8 +1,7 @@
 import React from 'react';
 import { ProductCard } from '../components';
-import { products } from '../data/products';
 
-const Home = ({ addToCart }) => {
+const Home = ({ products, addToCart }) => {
   // Afficher seulement les 3 premiers produits en vedette
   const featuredProducts = products.slice(0, 3);
 

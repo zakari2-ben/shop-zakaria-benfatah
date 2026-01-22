@@ -1,9 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { products } from '../data/products';
 import { formatPrice } from '../utils/formatPrice';
 
-const ProductDetails = ({ addToCart }) => {
+const ProductDetails = ({ products, addToCart }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const product = products.find(p => p.id === parseInt(id));
