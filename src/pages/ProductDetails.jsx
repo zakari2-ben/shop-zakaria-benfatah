@@ -1,9 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { products } from '../data/products';
 import { formatPrice } from '../utils/formatPrice';
 
-const ProductDetails = ({ addToCart }) => {
+const ProductDetails = ({ products, addToCart }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const product = products.find(p => p.id === parseInt(id));
@@ -20,10 +19,10 @@ const ProductDetails = ({ addToCart }) => {
           <span className="category-tag">{product.category}</span>
           <p className="price-large">{formatPrice(product.price)}</p>
           <p className="description">{product.description}</p>
-          <p>Stock: {product.inStock ? "Disponible" : "Épuisé"}</p>
+          {/* <p>Stock: {product.inStock ? "Disponible" : "Épuisé"}</p> */}
           <button 
             className="btn-add-large"
-            disabled={!product.inStock}
+            // disabled={!product.inStock}
             onClick={() => addToCart(product)}
           >
             Ajouter au panier

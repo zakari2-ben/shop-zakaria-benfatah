@@ -1,68 +1,40 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import { ProductCard } from '../components';
-import { products } from '../data/products';
 
 const Products = ({ addToCart }) => {
-  const [filtered, setFiltered] = useState(products);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const [sortOrder, setSortOrder] = useState("default");
+  const { data: products, loading, error } = useFetch('https://fakestoreapi.com/products');
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    let result = [...products];
+  if (loading) return <div className="container">Chargement...</div>;
+  if (error) return <div className="container">Erreur: {error}</div>;
 
-    // Filtre Recherche
-    if (search) {
-      result = result.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
-    }
-
-    // Filtre Catégorie
-    if (category !== "all") {
-      result = result.filter(p => p.category === category);
-    }
-
-    // Tri
-    if (sortOrder === "asc") result.sort((a, b) => a.price - b.price);
-    if (sortOrder === "desc") result.sort((a, b) => b.price - a.price);
-    if (sortOrder === "az") result.sort((a, b) => a.name.localeCompare(b.name));
-
-    setFiltered(result);
-  }, [search, category, sortOrder]);
+  // Tache 6 : Filtrage par titre
+  const filteredProducts = products.filter(p => 
+    p.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container">
-      <h1>Notre Catalogue</h1>
-      
-      {/* Barre de filtres */}
-      <div className="filters">
-        <input 
-          type="text" 
-          placeholder="Rechercher..." 
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="all">Toutes les catégories</option>
-          <option value="Cuisine">Cuisine</option>
-          <option value="Mode">Mode</option>
-          <option value="Décoration">Décoration</option>
-          <option value="Artisanat">Artisanat</option>
-        </select>
+      <h1>Notre Boutique</h1>
 
-        <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-          <option value="default">Trier par</option>
-          <option value="asc">Prix croissant</option>
-          <option value="desc">Prix décroissant</option>
-          <option value="az">Nom A-Z</option>
-        </select>
+      {/* Barre de recherche */}
+      <div className="search-container" style={{ marginBottom: '20px' }}>
+        <input 
+          type="text"
+          placeholder="Rechercher un produit..."
+          className="search-input"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <p style={{ marginTop: '10px' }}>
+          {filteredProducts.length} résultat(s) trouvé(s)
+        </p>
       </div>
 
       <div className="product-grid">
-        {filtered.map(p => (
-          <ProductCard key={p.id} product={p} onAddToCart={addToCart} />
+        {filteredProducts.map(product => (
+          <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
         ))}
-        {filtered.length === 0 && <p>Aucun produit trouvé.</p>}
       </div>
     </div>
   );

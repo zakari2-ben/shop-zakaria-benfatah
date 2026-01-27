@@ -9,19 +9,31 @@ import Contact from './pages/Contact';
 import './App.css';
 
 function App() {
-  // State Global du panier (Phase 1/2 : React State)
-  // En Phase 3, on remplacera ceci par Redux Toolkit
+  const [products, setProducts] = useState([]); // État pour stocker les produits de l'API
+  const [loading, setLoading] = useState(true); // État pour le chargement
   const [cart, setCart] = useState(() => {
-     // Bonus: Persistance locale
      const savedCart = localStorage.getItem('cart');
      return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  // Appel à l'API FakeStore
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Erreur lors de la récupération des produits:", err);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Ajouter au panier
   const addToCart = (product) => {
     setCart(prevCart => {
       const existing = prevCart.find(item => item.id === product.id);
@@ -32,10 +44,8 @@ function App() {
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
-    alert(`${product.name} ajouté au panier!`);
   };
 
-  // Mettre à jour quantité
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity < 1) return;
     setCart(prevCart => 
@@ -43,12 +53,10 @@ function App() {
     );
   };
 
-  // Supprimer du panier
   const removeFromCart = (id) => {
     setCart(prevCart => prevCart.filter(item => item.id !== id));
   };
 
-  // Calcul nombre total d'articles
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
@@ -56,15 +64,20 @@ function App() {
       <div className="app-layout">
         <Header cartCount={cartCount} />
         <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
-            <Route path="/products" element={<Products addToCart={addToCart} />} />
-            <Route path="/products/:id" element={<ProductDetails addToCart={addToCart} />} />
-            <Route path="/cart" element={
-              <Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
-            } />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          {loading ? (
+            <div className="container"><h2>Chargement des produits...</h2></div>
+          ) : (
+            <Routes>
+              {/* On passe la liste "products" de l'API aux composants */}
+              <Route path="/" element={<Home products={products} addToCart={addToCart} />} />
+              <Route path="/products" element={<Products products={products} addToCart={addToCart} />} />
+              <Route path="/products/:id" element={<ProductDetails products={products} addToCart={addToCart} />} />
+              <Route path="/cart" element={
+                <Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
+              } />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          )}
         </main>
         <Footer />
       </div>
