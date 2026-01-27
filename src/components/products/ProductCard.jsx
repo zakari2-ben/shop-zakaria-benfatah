@@ -7,17 +7,20 @@ const ProductCard = ({ product, onAddToCart }) => {
   return (
     <div className="product-card">
       <div className="image-container">
-        <img src={product.image} alt={product.name} />
-        {!product.inStock && <span className="out-of-stock">Rupture</span>}
+        {/* Image cliquable */}
+        <Link to={`/products/${product.id}`}>
+          <img src={product.image} alt={product.title} />
+        </Link>
       </div>
       <div className="card-body">
         <span className="category">{product.category}</span>
-        <h3>{product.name}</h3>
+        <h3>{product.title}</h3>
         <p className="price">{formatPrice(product.price)}</p>
+        <p className='rating'>{product.rating.rate}</p>
         <div className="card-actions">
             <Link to={`/products/${product.id}`} className="btn-details">Voir</Link>
             <button 
-              disabled={!product.inStock} 
+               
               onClick={() => onAddToCart(product)}
               className="btn-add"
             >
