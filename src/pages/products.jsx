@@ -1,53 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import { ProductCard } from '../components';
 
-const Products = ({ products, addToCart }) => {
-  const [filtered, setFiltered] = useState([]);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
+const Products = ({ addToCart }) => {
+  const { data: products, loading, error } = useFetch('https://fakestoreapi.com/products');
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    let result = [...products];
+  if (loading) return <div className="container">Chargement...</div>;
+  if (error) return <div className="container">Erreur: {error}</div>;
 
-    if (search) {
-      result = result.filter(p => p.title.toLowerCase().includes(search.toLowerCase()));
-    }
-
-    if (category !== "all") {
-      result = result.filter(p => p.category === category);
-    }
-
-    setFiltered(result);
-  }, [search, category, products]); // On ajoute "products" comme dépendance
-
-  // Extraire les catégories uniques de l'API pour le menu déroulant
-  const categories = ["all", ...new Set(products.map(p => p.category))];
+  // Tache 6 : Filtrage par titre
+  const filteredProducts = products.filter(p => 
+    p.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container">
-      <h1>Notre Catalogue</h1>
-      
-      <div className="filters">
+      <h1>Notre Boutique</h1>
+
+      {/* Barre de recherche */}
+      <div className="search-container" style={{ marginBottom: '20px' }}>
         <input 
-          type="text" 
-          placeholder="Rechercher un produit..." 
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          placeholder="Rechercher un produit..."
+          className="search-input"
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>
-              {cat === "all" ? "Toutes les catégories" : cat}
-            </option>
-          ))}
-        </select>
+        <p style={{ marginTop: '10px' }}>
+          {filteredProducts.length} résultat(s) trouvé(s)
+        </p>
       </div>
 
       <div className="product-grid">
-        {filtered.map(p => (
-          /* Attention : l'API utilise "title" au lieu de "name" */
-          <ProductCard key={p.id} product={{...p, name: p.title}} onAddToCart={addToCart} />
+        {filteredProducts.map(product => (
+          <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
         ))}
       </div>
     </div>

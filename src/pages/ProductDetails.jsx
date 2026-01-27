@@ -19,10 +19,10 @@ const ProductDetails = ({ products, addToCart }) => {
           <span className="category-tag">{product.category}</span>
           <p className="price-large">{formatPrice(product.price)}</p>
           <p className="description">{product.description}</p>
-          <p>Stock: {product.inStock ? "Disponible" : "Épuisé"}</p>
+          {/* <p>Stock: {product.inStock ? "Disponible" : "Épuisé"}</p> */}
           <button 
             className="btn-add-large"
-            disabled={!product.inStock}
+            // disabled={!product.inStock}
             onClick={() => addToCart(product)}
           >
             Ajouter au panier
