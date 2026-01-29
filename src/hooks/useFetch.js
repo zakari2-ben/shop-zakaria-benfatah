@@ -13,6 +13,7 @@ const useFetch = (url) => {
         const result = await response.json();
         setData(result);
       } catch (err) {
+        console.error(err)
         setError(err.message);
       } finally {
         setLoading(false);
