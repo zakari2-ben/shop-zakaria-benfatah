@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
 import Home from './pages/Home';
-import Products from './pages/products';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
 import './App.css';
+import Products from './pages/Products';
 
 function App() {
   const [products, setProducts] = useState([]); // État pour stocker les produits de l'API
@@ -18,7 +18,7 @@ function App() {
 
   // Appel à l'API FakeStore
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
+    fetch('https://fakestoreapi.com/products') 
       .then(res => res.json())
       .then(data => {
         setProducts(data);
