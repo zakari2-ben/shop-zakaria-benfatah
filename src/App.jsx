@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
 import Home from './pages/Home';
-import Products from './pages/Products';
+import Products from './pages/products';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
