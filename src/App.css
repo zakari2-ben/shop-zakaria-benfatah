@@ -114,8 +114,70 @@ body.dark .product-card {
   border-color: #444;
 }
 
+
+body.dark .cart-table {
+  background-color: #1a1a1a;
+  color: white;
+}
+body.dark .contact-form {
+  background-color: #221f1f;
+  color: white;
+}
+
+body.dark .logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e9dcd0 0%, #ac652c 50%, #e2dbd1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
+  transition: transform 0.3s ease;
+}
+
+body.dark .logo:hover {
+  transform: scale(1.05);
+}
+
+
+
 body.dark .header {
-  background-color: #111;
+  /* background-color: #1a1a1a;
+  color: white; */
+
+  background: linear-gradient(135deg, rgba(15, 9, 4, 0.95) 0%, rgba(85, 77, 67, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(240, 212, 212, 0.1);
+  border-bottom: 1px solid rgba(212,165,116,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.dark .header-content {
+  color: white;
+}
+
+body.dark .nav-links a {
+  color: #ebeae9;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+body.dark .nav-links a:hover {
+  background: linear-gradient(135deg, #d4a574, #1a120c);
+  color: rgb(235, 222, 214);
+  transform: translateY(-9px);
+  box-shadow: 0 8px 25px rgba(7, 5, 3, 0.4);
 }
 
 /* ─── Product Details ───────────────────────────── */
