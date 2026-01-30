@@ -1,9 +1,31 @@
 import React from 'react';
 import { formatPrice } from '../utils/formatPrice';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-const Cart = ({ cart, updateQuantity, removeFromCart }) => {
+const Cart = ({ cart, updateQuantity, removeFromCart, clearCart}) => {
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  const [isOrdered, setIsOrdered] = useState(false);
+
+  const handleOrder = () => {
+    if (cart.length > 0) {
+      setIsOrdered(true);
+      clearCart()
+      // هنا ممكن تزيد دالة كتمسح السلة (مثلاً clearCart)
+      console.log("Commande passée avec succès !");
+    }
+  };
+
+  // 3. عرض رسالة النجاح
+  if (isOrdered) {
+    return (
+      <div className="container">
+        <div className="success-message">🎉 Merci ! Votre commande a été enregistrée.</div>
+        <Link to="/products">Continuer vos achats</Link>
+      </div>
+    );
+  }
 
   if (cart.length === 0) {
     return (
@@ -47,7 +69,7 @@ const Cart = ({ cart, updateQuantity, removeFromCart }) => {
       </table>
       <div className="cart-total">
         <h3>Total TTC : {formatPrice(total)}</h3>
-        <button className="btn-checkout">Commander</button>
+        <button className="btn-checkout" onClick={handleOrder}>Commander</button>
       </div>
     </div>
   );
