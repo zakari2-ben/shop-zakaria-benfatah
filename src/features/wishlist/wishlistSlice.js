@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// محاولة جلب البيانات القديمة من localStorage إذا كانت موجودة
+// get nauvau prouducts dans localsstorage if exist
 const initialState = {
   items: JSON.parse(localStorage.getItem('wishlist')) || [],
 };
