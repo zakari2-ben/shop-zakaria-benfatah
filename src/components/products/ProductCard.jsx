@@ -47,7 +47,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <span className="category">{product.category}</span> 
         <h3>{product.title}</h3> 
         <p className="price">{formatPrice(product.price)}</p> 
-        <p className='rating'>{product.rating.rate}</p> 
+        <p className='rating'>⭐ {product.rating.rate}</p> 
         <div className="card-actions">
             <Link to={`/products/${product.id}`} className="btn-details">Voir</Link> 
             <button 
