@@ -30,7 +30,7 @@ const Cart = ({ cart, updateQuantity, removeFromCart }) => {
         <tbody>
           {cart.map(item => (
             <tr key={item.id}>
-              <td>{item.name}</td>
+              <td>{item.title}</td>
               <td>{formatPrice(item.price)}</td>
               <td>
                 <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>

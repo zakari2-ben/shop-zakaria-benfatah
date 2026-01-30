@@ -5,31 +5,20 @@ import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
-import './App.css';
 import Products from './pages/Products';
+import useFetch from './hooks/useFetch'; 
+import Wishlist from './pages/Wishlist';
+import './App.css';
 
 function App() {
-  const [products, setProducts] = useState([]); // État pour stocker les produits de l'API
-  const [loading, setLoading] = useState(true); // État pour le chargement
+  const { data: products, loading, error } = useFetch('https://fakestoreapi.com/products');
+
   const [cart, setCart] = useState(() => {
      const savedCart = localStorage.getItem('cart');
      return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // Appel à l'API FakeStore
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products') 
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Erreur lors de la récupération des produits:", err);
-        setLoading(false);
-      });
-  }, []);
-
+  // enregistrement de cart dans localStorage à chaque modification
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -59,6 +48,9 @@ function App() {
 
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
+// affichage des états de chargement et d'erreur
+  if (error) return <div className="container"><h2>خطأ: {error}</h2></div>;
+
   return (
     <Router>
       <div className="app-layout">
@@ -68,14 +60,14 @@ function App() {
             <div className="container"><h2>Chargement des produits...</h2></div>
           ) : (
             <Routes>
-              {/* On passe la liste "products" de l'API aux composants */}
-              <Route path="/" element={<Home products={products} addToCart={addToCart} />} />
-              <Route path="/products" element={<Products products={products} addToCart={addToCart} />} />
-              <Route path="/products/:id" element={<ProductDetails products={products} addToCart={addToCart} />} />
+              <Route path="/" element={<Home products={products || []} addToCart={addToCart} />} />
+              <Route path="/products" element={<Products products={products || []} addToCart={addToCart} />} />
+              <Route path="/products/:id" element={<ProductDetails products={products || []} addToCart={addToCart} />} />
               <Route path="/cart" element={
                 <Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
               } />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/wishlist" element={<Wishlist addToCart={addToCart} />} />
             </Routes>
           )}
         </main>
