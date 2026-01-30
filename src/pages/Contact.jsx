@@ -1,9 +1,12 @@
+import { useShop } from '../context/ShopContext'; // Import du contexte
 import { useState } from 'react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  const [sent, setSent] = useState(false);
+  const { sendMessage } = useShop();
 
   const validate = () => {
     let tempErrors = {};
@@ -22,44 +25,56 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      setSubmitted(true);
+      // setSubmitted(true);
+      sendMessage(formData);
+      setSent(true);
+      
       // Ici, on simule l'envoi
       console.log("Données envoyées:", formData);
     }
+    // setSent(true);
+    // sendMessage(formData);
+    setTimeout(() => setSent(false), 3000); // Cacher le message de succès après 3s
   };
+  console.log(errors);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   return (
-    <div className="container contact-container">
+    <div className="contact-container" style={{padding: '50px', maxWidth: '800px', margin: '0 auto'}}>
       <h1>Contactez-nous</h1>
-      {submitted ? (
-        <div className="success-message">Merci ! Votre message a été envoyé.</div>
-      ) : (
-        <form onSubmit={handleSubmit} className="contact-form">
-          <div className="form-group">
-            <label>Nom Complet</label>
-            <input name="name" value={formData.name} onChange={handleChange} />
-            {errors.name && <span className="error">{errors.name}</span>}
-          </div>
+      {sent && <div style={{background: '#d4edda', color: '#155724', padding: '15px', marginBottom: '20px'}}>Message envoyé avec succès !</div>}
+      
+      <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+        <input 
+          type="text" placeholder="Nom complet"  
+          value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
+          style={{padding: '10px', border: '1px solid #ccc'}}
+        />
+        {errors.name && <span className="error">{errors.name}</span>}
 
-          <div className="form-group">
-            <label>Email</label>
-            <input name="email" value={formData.email} onChange={handleChange} />
-            {errors.email && <span className="error">{errors.email}</span>}
-          </div>
-
-          <div className="form-group">
-            <label>Message</label>
-            <textarea name="message" value={formData.message} onChange={handleChange} />
-            {errors.message && <span className="error">{errors.message}</span>}
-          </div>
-
-          <button type="submit" className="btn-add">Envoyer</button>
-        </form>
-      )}
+        <input 
+          type="text" placeholder="Email"  
+          value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
+          style={{padding: '10px', border: '1px solid #ccc'}}
+        />
+        {errors.email && <span className="error">{errors.email}</span>}
+        <input 
+          type="text" placeholder="Sujet"  
+          value={formData.subject} onChange={e => setFormData({...formData, subject: e.target.value})}
+          style={{padding: '10px', border: '1px solid #ccc'}}
+        />
+        {errors.subject && <span className="error">{errors.subject}</span>}
+        <textarea 
+          placeholder="Votre message..." rows="5"  
+          value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
+          style={{padding: '10px', border: '1px solid #ccc'}}
+        ></textarea>
+        {errors.message && <span className="error">{errors.message}</span>}
+        <button type="submit" style={{padding: '12px', background: '#333', color: 'white', border: 'none', cursor: 'pointer'}}>Envoyer</button>
+      </form>
     </div>
   );
 };
