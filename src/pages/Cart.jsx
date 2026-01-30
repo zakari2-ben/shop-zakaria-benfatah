@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatPrice } from '../utils/formatPrice';
 import { Link } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import { useState } from 'react';
 
 const Cart = ({ cart, updateQuantity, removeFromCart, clearCart}) => {
@@ -8,16 +9,23 @@ const Cart = ({ cart, updateQuantity, removeFromCart, clearCart}) => {
 
   const [isOrdered, setIsOrdered] = useState(false);
 
+  const { addOrder } = useShop(); // Récupérer la fonction du contexte
+
   const handleOrder = () => {
     if (cart.length > 0) {
+      // Calculer le total
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      
+      // Mettre à jour les stats admin
+      addOrder(total);
+      
       setIsOrdered(true);
-      clearCart()
-      // هنا ممكن تزيد دالة كتمسح السلة (مثلاً clearCart)
-      console.log("Commande passée avec succès !");
+      clearCart();
+      console.log("Commande passée et envoyée à l'admin !");
     }
-  };
+};
 
-  // 3. عرض رسالة النجاح
+  // 3. afichage la lettre de de success
   if (isOrdered) {
     return (
       <div className="container">
