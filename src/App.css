@@ -268,6 +268,24 @@ body.dark .admin-login-container {
   background: #121212;
 }
 
+body.dark .description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #d1c7c7;
+  margin: 1.8rem 0 2.5rem;
+}
+
+body.dark .category-tag {
+  background: rgba(196, 11, 11, 0.15);
+  color: #ffffff;
+  padding: 0.4rem 1rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+
+
 
 
 /* ─── Product Details ───────────────────────────── */
@@ -294,8 +312,8 @@ body.dark .admin-login-container {
 }
 
 .category-tag {
-  background: rgba(200,159,94,0.15);
-  color: #e0b577;
+  background: rgba(226, 156, 43, 0.15);
+  color: #251e14;
   padding: 0.4rem 1rem;
   border-radius: 30px;
   font-size: 0.95rem;
@@ -312,12 +330,12 @@ body.dark .admin-login-container {
 .description {
   font-size: 1.15rem;
   line-height: 1.7;
-  color: #ccc;
+  color: #070202;
   margin: 1.8rem 0 2.5rem;
 }
 
 .btn-add-large {
-  background: linear-gradient(90deg, #c89f5e, #e0b577);
+  background: linear-gradient(90deg, #d4890f, #dfbb89);
   color: #0f0f0f;
   border: none;
   padding: 1.1rem 2.6rem;
