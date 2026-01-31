@@ -11,7 +11,7 @@ const Products = ({ products, addToCart }) => {
 
   
 
-  // logic de la recherche par category
+  
   const categories = ["all", ...new Set(products.map(p => p.category))];
 
   // la logic de filtrage pour tout les niveaux 
