@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../hooks/useTheme";
 // Ajoute Sun et Moon ici
-import { ShoppingCart, Menu, Sun, Moon, Heart, ShieldCheck} from "lucide-react";
+import {
+  ShoppingCart,
+  Menu,
+  Sun,
+  Moon,
+  Heart,
+  ShieldCheck,
+} from "lucide-react";
 import { useSelector } from "react-redux";
 import "./Header.css";
 
@@ -28,15 +35,15 @@ const Header = ({ cartCount }) => {
             </span>
           </Link>
 
+          {/* Routes Admin */}
+          <Link to="/admin/login" className="admin-link">
+            <ShieldCheck size={30} />
+          </Link>
+
           {/* Bouton de Thème fonctionnera maintenant */}
           <button onClick={toggleTheme} className="theme-toggle">
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-          {/* Routes Admin */}
-        <Link to="/admin/login" className="admin-link">
-          <ShieldCheck size={30} color="white" />
-        </Link>
-        
         </nav>
 
         <div className="header-actions">
