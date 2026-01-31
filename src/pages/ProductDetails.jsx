@@ -13,9 +13,9 @@ const ProductDetails = ({ products, addToCart }) => {
     <div className="container product-detail-container">
       <button onClick={() => navigate(-1)} className="btn-back">← Retour</button>
       <div className="detail-grid">
-        <img src={product.image} alt={product.name} className="detail-image" />
+        <img src={product.image} alt={product.title} className="detail-image" />
         <div className="detail-info">
-          <h1>{product.name}</h1>
+          <h1>{product.title}</h1>
           <span className="category-tag">{product.category}</span>
           <p className="price-large">{formatPrice(product.price)}</p>
           <p className="description">{product.description}</p>
