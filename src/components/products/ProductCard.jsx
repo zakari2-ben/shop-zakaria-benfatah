@@ -45,7 +45,7 @@ const ProductCard = ({ product, onAddToCart }) => {
       </div>
       <div className="card-body">
         <span className="category">{product.category}</span> 
-        <h3>{product.title}</h3> 
+        <h3>{product.title.slice(0, 20)}...</h3> 
         <p className="price">{formatPrice(product.price)}</p> 
         <p className='rating'>⭐ {product.rating.rate}</p> 
         <div className="card-actions">
