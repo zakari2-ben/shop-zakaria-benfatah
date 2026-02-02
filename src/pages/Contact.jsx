@@ -28,13 +28,15 @@ const Contact = () => {
       // setSubmitted(true);
       sendMessage(formData);
       setSent(true);
+      setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
       
       // Ici, on simule l'envoi
       console.log("Données envoyées:", formData);
     }
     // setSent(true);
     // sendMessage(formData);
-    setTimeout(() => setSent(false), 3000); // Cacher le message de succès après 3s
+    setTimeout(() => setSent(false), 5000); // Cacher le message de succès après 3s
+    
   };
   console.log(errors);
 
