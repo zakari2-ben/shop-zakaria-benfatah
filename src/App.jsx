@@ -66,7 +66,7 @@ const ShopRoutes = () => {
   if (loading)
     return (
       <div className="container">
-        <h2>Chargement...</h2>
+        <h2>Chargement des produits...</h2>
       </div>
     );
 

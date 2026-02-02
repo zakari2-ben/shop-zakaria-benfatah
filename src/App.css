@@ -55,7 +55,7 @@ body {
   flex-wrap: wrap;            /* Retour à la ligne si l'espace est insuffisant */
   gap: 15px;                  /* Espacement entre les filtres */
   padding: 15px;
-  background-color: #f9f9f9;  /* Fond clair */
+  background-color: #e4d9d9;  /* Fond clair */
   border-radius: 8px;         /* Coins arrondis */
   margin-bottom: 20px;
 }
@@ -186,18 +186,21 @@ body.dark .logo:hover {
 
 
 body.dark .header {
-  /* background-color: #1a1a1a;
-  color: white; */
+  background: url("./images/darkmode.png") center / cover no-repeat;
+  animation: zoomMove 30s ease-in-out infinite;
+}
 
-  background: linear-gradient(135deg, rgba(15, 9, 4, 0.95) 0%, rgba(85, 77, 67, 0.9) 100%);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(240, 212, 212, 0.1);
-  border-bottom: 1px solid rgba(212,165,116,0.2);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 1rem 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes zoomMove {
+  0% {
+    background-size: 100%;
+  }
+  50% {
+    background-size: 110%;
+    background-position: 60% 40%;
+  }
+  100% {
+    background-size: 100%;
+  }
 }
 body.dark .header-content {
   color: white;
@@ -228,7 +231,7 @@ body.dark .filters-container {
   flex-wrap: wrap;            /* Retour à la ligne si l'espace est insuffisant */
   gap: 15px;                  /* Espacement entre les filtres */
   padding: 15px;
-  background-color: #141313;  /* Fond clair */
+  background-color: #030303;  /* Fond clair */
   border-radius: 8px;         /* Coins arrondis */
   margin-bottom: 20px;
 }
