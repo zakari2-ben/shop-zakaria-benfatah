@@ -88,7 +88,7 @@ export const ShopProvider = ({ children }) => {
 
   const loginAdmin = (email, password) => {
     // Identifiants hardcodés pour la démo
-    if (email === "admin@shop.ma" && password === "123456") {
+    if (email === "zakaria@admin.ma" && password === "admin123") {
       const user = { email, role: 'admin' };
       setAdminUser(user);
       sessionStorage.setItem('adminUser', JSON.stringify(user));
