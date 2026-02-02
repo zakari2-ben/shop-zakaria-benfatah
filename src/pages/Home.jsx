@@ -9,7 +9,7 @@ const Home = ({ products, addToCart }) => {
     <div className="container">
       <section className="hero">
         <h1>Bienvenue sur Shop.ma</h1>
-        <p>Découvrez l'excellence de l'artisanat marocain.</p>
+        <p>Découvrez l'excellence des produits marocain.</p>
       </section>
 
       <h2>Produits Vedettes</h2>
